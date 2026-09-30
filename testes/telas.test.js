@@ -68,12 +68,24 @@ test('quem aceita envia uma unica vez, mesmo recarregando o relatorio', async ()
   assert.equal(b.chamadas.length, 0, 'recarregar nao duplica a linha na planilha');
 });
 
-test('quem nao aceita nao envia nada', async () => {
+test('todos enviam: nao existe mais caixinha de aceite', async () => {
   const telas = montarSequencia();
   const a = ambiente({ sessao: { posicao: telas.length - 1, respostas: { ...RESPOSTAS, aceitaEnvio: false }, enviado: false } });
   await esperar(20);
-  assert.equal(a.chamadas.length, 0);
-  assert.ok(a.raiz.innerHTML.includes('não foram enviadas'));
+  assert.equal(a.chamadas.length, 1, 'sessao antiga sem aceite tambem envia');
+  assert.ok(a.raiz.innerHTML.includes('enviadas para a equipe'));
+});
+
+test('a turma vem preenchida com o nome da oficina e nao ha caixinha de aceite', () => {
+  const a = ambiente({ sessao: { posicao: 1, respostas: { ...RESPOSTAS, nome: '', turma: 'Meu Futuro Começa em Mim' }, enviado: false } });
+  assert.ok(a.raiz.innerHTML.includes('value="Meu Futuro Começa em Mim"'));
+  assert.ok(!a.raiz.innerHTML.includes('campo-aceite'));
+});
+
+test('sem turma no endereco, a turma padrao e a da oficina', () => {
+  const a = ambiente();
+  a.clicar({ acao: 'comecar' });
+  assert.ok(a.raiz.innerHTML.includes('value="Meu Futuro Começa em Mim"'));
 });
 
 test('falha no envio mostra tentar de novo, e o botao reenvia', async () => {

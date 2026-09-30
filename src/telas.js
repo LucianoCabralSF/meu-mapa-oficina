@@ -6,6 +6,7 @@ import { decodificar } from './link.js';
 import { montarEnvio, enviar } from './envio.js';
 
 export const CHAVE = 'meu-mapa-oficina-v1';
+export const TURMA_PADRAO = 'Meu Futuro Começa em Mim';
 const ATRASO = 250;
 
 function salvar(estado) {
@@ -45,9 +46,9 @@ export function montarSequencia() {
   return t;
 }
 
-function respostasVazias(turma = '') {
+function respostasVazias(turma = TURMA_PADRAO) {
   return {
-    nome: '', turma, aceitaEnvio: false,
+    nome: '', turma,
     estilos: SITUACOES.map(() => ({ mais: null, menos: null })),
     emocao: null, termometro: null, sinais: [], ferramentas: [], frase: null,
     relacoes: { casa: null, amigos: null, escola: null }, rede: [],
@@ -64,9 +65,9 @@ function estadoValido(e, telas) {
 
 function turmaDoEndereco() {
   try {
-    return (new URLSearchParams(globalThis.location?.search ?? '').get('turma') ?? '').slice(0, 40);
+    return (new URLSearchParams(globalThis.location?.search ?? '').get('turma') || TURMA_PADRAO).slice(0, 40);
   } catch {
-    return '';
+    return TURMA_PADRAO;
   }
 }
 
@@ -110,7 +111,7 @@ export function criarApp(raiz) {
       + '<h1>Meu Mapa.</h1>'
       + '<p>Um jeito de se conhecer melhor: como você reage, o que sente, como se cuida e com quem pode contar.</p>'
       + '<p>São cerca de 8 minutos. Não existe resposta certa ou errada: responda o que é verdade para você.</p>'
-      + '<p class="aviso-abertura">No final você vê o seu resultado aqui no celular. Se você concordar, as respostas também vão para a equipe da oficina, para ajudar a preparar o próximo encontro. Elas não vão para mais ninguém.</p>'
+      + '<p class="aviso-abertura">No final você vê o seu resultado aqui no celular. As respostas também vão para a equipe da oficina, para ajudar a preparar o próximo encontro. Elas não vão para mais ninguém.</p>'
       + '<button type="button" class="botao-principal" data-acao="comecar">Começar</button>'
       + '</div>';
   }
@@ -121,10 +122,8 @@ export function criarApp(raiz) {
       + '<h1>Como podemos te chamar?</h1>'
       + '<label class="campo"><span>Primeiro nome ou apelido</span>'
       + `<input type="text" id="campo-nome" maxlength="30" value="${escaparHtml(respostas.nome)}" autocomplete="given-name"></label>`
-      + '<label class="campo"><span>Turma (opcional)</span>'
+      + '<label class="campo"><span>Turma</span>'
       + `<input type="text" id="campo-turma" maxlength="30" value="${escaparHtml(respostas.turma)}"></label>`
-      + '<label class="aceite"><input type="checkbox" id="campo-aceite"' + (respostas.aceitaEnvio ? ' checked' : '') + '>'
-      + '<span>Aceito enviar minhas respostas para a equipe da oficina. Se não marcar, você vê o resultado e nada é enviado.</span></label>'
       + '<button type="button" class="botao-principal" data-acao="identificar">Continuar</button>'
       + voltar + '</div>';
   }
@@ -198,8 +197,8 @@ export function criarApp(raiz) {
   }
 
   function chegarAoRelatorio() {
-    if (!respostas.aceitaEnvio) envio = 'nao-autorizado';
-    else if (enviado) envio = 'enviado';
+    // A participacao ja foi autorizada no contrato da oficina: sempre envia.
+    if (enviado) envio = 'enviado';
     else { enviarRespostas(); return; }
     desenhar();
   }
@@ -219,8 +218,7 @@ export function criarApp(raiz) {
       const nome = raiz.querySelector('#campo-nome');
       if (!nome?.value.trim()) { nome?.focus(); return; }
       respostas.nome = nome.value.trim().slice(0, 30);
-      respostas.turma = (raiz.querySelector('#campo-turma')?.value ?? '').trim().slice(0, 30);
-      respostas.aceitaEnvio = Boolean(raiz.querySelector('#campo-aceite')?.checked);
+      respostas.turma = ((raiz.querySelector('#campo-turma')?.value ?? '').trim() || TURMA_PADRAO).slice(0, 40);
       avancar();
     } else if (acao === 'forcada') {
       if (pendente) return;

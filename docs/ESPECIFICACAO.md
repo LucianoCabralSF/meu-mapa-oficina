@@ -22,7 +22,9 @@ Mostra quadro de apoio em destaque (adulto de confiança, equipe, CVV 188, Disqu
 e marca "SIM" na planilha. O quadro de apoio aparece sempre, discreto, sem alerta.
 
 ## Dados e privacidade
-- Envio só com aceite explícito do adolescente; sem aceite, nada sai do aparelho.
+- Envio sempre: a participação e o uso das ferramentas já estão autorizados no contrato
+  da oficina (decisão de Luciano, 30/09). A abertura informa que as respostas vão para a equipe.
+- Turma padrão: "Meu Futuro Começa em Mim" (outra turma via ?turma=).
 - Backend Apps Script só grava (sem rota de leitura). Textos cortados em 300 caracteres
   e protegidos contra fórmula (prefixo ').
 - A planilha guarda o link do relatório (respostas compactadas depois do `#`).

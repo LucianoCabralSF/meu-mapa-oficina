@@ -8,8 +8,8 @@ Entendo que:
 
 - o adolescente responde perguntas sobre como reage a situações do dia a dia,
   suas emoções, como se cuida, suas relações e sua rede de apoio;
-- as respostas só são enviadas à equipe da oficina se o próprio adolescente
-  marcar que aceita, e servem apenas para preparar os próximos encontros;
+- as respostas são enviadas à equipe da oficina e servem apenas para preparar
+  os próximos encontros;
 - as respostas ficam numa planilha de acesso restrito à equipe e não são
   compartilhadas com outras pessoas ou instituições, salvo quando houver sinal de
   risco à segurança do adolescente, caso em que a equipe seguirá a rede de

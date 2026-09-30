@@ -4,13 +4,13 @@ Versão do Mapa de Perfil (DEL / Lótus) para adolescentes, alinhada ao Encontro
 da oficina: **como eu me cuido e me conecto**. Leva cerca de 8 minutos no celular.
 
 - **Link para a turma:** https://lucianocabralsf.github.io/meu-mapa-oficina/
-- **Link já com a turma preenchida:** https://lucianocabralsf.github.io/meu-mapa-oficina/?turma=Turma%20A
-  (troque "Turma%20A" pelo nome da turma; `%20` é o espaço)
+- A turma já vem preenchida como **Meu Futuro Começa em Mim**. Para outra turma, use
+  https://lucianocabralsf.github.io/meu-mapa-oficina/?turma=Turma%20A (`%20` é o espaço)
 - **Planilha das respostas (só da equipe):** https://docs.google.com/spreadsheets/d/11QhpQAOz1LBQC9Fdnn6syeJqiE0jwctRseb075m-gl8/edit
 
 ## O que o adolescente faz
 
-1. Nome ou apelido, turma (opcional) e **se aceita** enviar as respostas para a equipe.
+1. Nome ou apelido (a turma já vem preenchida).
 2. **Como eu reajo:** 6 situações do dia a dia, escolhendo o que mais e o que menos faria.
 3. **O que eu sinto:** emoção que mais apareceu, termômetro emocional (0 a 5) e onde o corpo avisa.
 4. **Como eu me cuido:** ferramentas que já usa e a frase para pedir ajuda.
@@ -19,12 +19,12 @@ da oficina: **como eu me cuido e me conecto**. Leva cerca de 8 minutos no celula
 
 ## O que a equipe recebe
 
-Uma linha por adolescente que **aceitou** enviar, na planilha acima. A coluna
+Uma linha por adolescente, na planilha acima. A coluna
 **ATENÇÃO** fica vermelha quando aparecer: termômetro 4 ou 5, alguma relação no
 **vermelho**, ou termômetro 3 sem ninguém na rede de apoio. A última coluna tem
 o **link do relatório**: clique para ver o relatório completo daquele adolescente.
 
-**Quem não aceitar enviar vê o próprio resultado e nada vai para a planilha.**
+A participação e o uso das ferramentas já foram autorizados no contrato da oficina, por isso não há caixinha de aceite. A tela de abertura informa ao adolescente que as respostas vão para a equipe.
 
 ## ⚠️ Autorização única (só o dono da conta pode fazer)
 
@@ -40,7 +40,7 @@ Pronto. A partir daí, cada envio vira uma linha na planilha.
 
 ## Cuidados (dados de adolescentes)
 
-- Colete a **autorização dos responsáveis** antes (modelo em `AUTORIZACAO_RESPONSAVEIS.md`).
+- A autorização vem do contrato da oficina. Se precisar de um termo específico, há um modelo em `AUTORIZACAO_RESPONSAVEIS.md`.
 - A planilha deve ficar compartilhada só com a equipe. O endereço que recebe as respostas **só grava**: ninguém consegue ler as respostas por ele.
 - Linhas com **ATENÇÃO** pedem uma conversa cuidadosa com o adolescente e, se houver sinal de violência ou risco, o encaminhamento previsto pela instituição (Conselho Tutelar, rede de proteção).
 - Não é teste psicológico nem diagnóstico: é uma ferramenta de autoconhecimento da oficina.
@@ -51,7 +51,6 @@ Pronto. A partir daí, cada envio vira uma linha na planilha.
 - **Para voltar uma pergunta,** use o **"‹ voltar"** da própria página. O botão de voltar do celular sai do site.
 - **Se alguém não usa nenhuma ferramenta,** oriente a marcar a que mais se aproxima.
 - **Linhas repetidas** (mesmo nome, mesma hora e mesmo link) são o mesmo adolescente: acontece se o celular recarregar durante o envio.
-- **Quem não aceitou enviar** não aparece na planilha. Mesmo assim, o celular dessa pessoa mostra o quadro de apoio (CVV 188, Disque 100, 190 e 192). Vale uma checagem verbal com o grupo todo no fechamento.
 
 ## Para quem mexe no código
 
