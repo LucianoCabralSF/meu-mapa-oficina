@@ -1,0 +1,8 @@
+{
+  "name": "meu-mapa-oficina",
+  "version": "1.0.0",
+  "description": "Meu Mapa - versao do Mapa de Perfil para a oficina Meu Futuro Comeca em Mim",
+  "type": "module",
+  "private": true,
+  "scripts": { "test": "node --test \"testes/*.test.js\"" }
+}

@@ -1,0 +1,6 @@
+node_modules/
+.playwright-mcp/
+.superpowers/
+*.png
+!imagens/*.png
+.clasp.json
