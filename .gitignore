@@ -4,3 +4,4 @@ node_modules/
 *.png
 !imagens/*.png
 .clasp.json
+!assets/*.png
