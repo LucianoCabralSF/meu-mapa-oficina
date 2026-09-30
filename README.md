@@ -1,6 +1,6 @@
 # Meu Mapa — Oficina Meu Futuro Começa em Mim
 
-Versão do Mapa de Perfil (DEL / Lótus) para adolescentes, alinhada ao Encontro 2
+Versão do Mapa de Perfil (Instituto Lótus) para adolescentes, alinhada ao Encontro 2
 da oficina: **como eu me cuido e me conecto**. Leva cerca de 8 minutos no celular.
 
 - **Link para a turma:** https://lucianocabralsf.github.io/meu-mapa-oficina/

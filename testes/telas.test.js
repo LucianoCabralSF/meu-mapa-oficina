@@ -141,3 +141,25 @@ test('nao percebo sinais pode ser marcado mesmo com tres sinais ja marcados', ()
   a.clicar({ acao: 'alternar', indice: String(iNada) });
   assert.deepEqual(JSON.parse(a.guardado.get(CHAVE)).respostas.sinais, ['NADA']);
 });
+
+test('o link da familia abre so o relatorio da familia', () => {
+  const a = ambiente({ hash: `#f=${codificar({ ...RESPOSTAS, relacoes: {}, rede: [] }, '30/09/2026')}` });
+  assert.ok(a.raiz.innerHTML.includes('Para a família de Bia'));
+  assert.ok(!a.raiz.innerHTML.includes('Minhas relações'));
+  const quebrado = ambiente({ hash: '#f=xx!' });
+  assert.ok(quebrado.raiz.innerHTML.includes('não abriu'));
+});
+
+test('compartilhar com a familia manda so o link da familia', async () => {
+  const telas = montarSequencia();
+  const a = ambiente({ sessao: { posicao: telas.length - 1, respostas: RESPOSTAS, enviado: true } });
+  const abertos = [];
+  globalThis.window.open = (url) => { abertos.push(url); };
+  a.clicar({ acao: 'familia' });
+  await esperar(10);
+  assert.equal(abertos.length, 1);
+  const texto = decodeURIComponent(abertos[0]);
+  assert.match(texto, /^https:\/\/wa\.me\/\?text=/);
+  assert.match(texto, /#f=/);
+  assert.doesNotMatch(texto, /#r=/);
+});

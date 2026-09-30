@@ -2,7 +2,8 @@ import {
   SITUACOES, EMOCOES, TERMOMETRO, SINAIS, FERRAMENTAS, FRASES_AJUDA, AREAS_RELACAO, CORES_SEMAFORO, REDE,
 } from './dados.js';
 import { montarRelatorio, escaparHtml } from './relatorio.js';
-import { decodificar } from './link.js';
+import { decodificar, linkDaFamilia } from './link.js';
+import { montarRelatorioFamilia } from './familia.js';
 import { montarEnvio, enviar } from './envio.js';
 
 export const CHAVE = 'meu-mapa-oficina-v1';
@@ -107,6 +108,7 @@ export function criarApp(raiz) {
 
   function telaAbertura() {
     return '<div class="tela">'
+      + '<div class="marca-abertura"><img src="assets/lotus.png" alt="" width="48" height="48"><span>Instituto Lótus<small>Instituto de Desenvolvimento Humano e Social</small></span></div>'
       + '<p class="kicker">OFICINA MEU FUTURO COMEÇA EM MIM</p>'
       + '<h1>Meu Mapa.</h1>'
       + '<p>Um jeito de se conhecer melhor: como você reage, o que sente, como se cuida e com quem pode contar.</p>'
@@ -255,6 +257,7 @@ export function criarApp(raiz) {
       desenhar();
     } else if (acao === 'reenviar') enviarRespostas();
     else if (acao === 'imprimir') window.print();
+    else if (acao === 'familia') compartilharComFamilia();
     else if (acao === 'apagar') {
       // Celular compartilhado: o proximo adolescente comeca do zero.
       try { sessionStorage.removeItem(CHAVE); } catch { /* nada a apagar */ }
@@ -268,6 +271,25 @@ export function criarApp(raiz) {
         desenhar();
       } else ir(posicao - 1);
     }
+  }
+
+  // O celular abre o menu de compartilhar (WhatsApp, etc.). Sem ele, vai direto ao WhatsApp.
+  async function compartilharComFamilia() {
+    const url = linkDaFamilia(respostas, hoje());
+    const texto = 'Fiz o Meu Mapa na oficina do Instituto Lótus e quero te mostrar. Tem dicas de como a gente pode conversar melhor:';
+    const nav = globalThis.navigator;
+    if (typeof nav?.share === 'function') {
+      try { await nav.share({ title: 'Meu Mapa para a família', text: texto, url }); return; } catch (erro) { if (erro?.name === 'AbortError') return; }
+    }
+    window.open(`https://wa.me/?text=${encodeURIComponent(`${texto} ${url}`)}`, '_blank');
+  }
+
+  function telaDaFamilia(token) {
+    const recebido = decodificar(token);
+    if (!recebido) {
+      return '<div class="tela"><h1>Este link não abriu.</h1><p>O endereço chegou incompleto. Peça para enviarem o link de novo, inteiro.</p></div>';
+    }
+    return montarRelatorioFamilia(recebido.respostas, recebido.data);
   }
 
   function telaDaEquipe(token) {
@@ -284,6 +306,10 @@ export function criarApp(raiz) {
       const hash = globalThis.location?.hash ?? '';
       if (hash.startsWith('#r=')) {
         raiz.innerHTML = telaDaEquipe(hash.slice(3));
+        return;
+      }
+      if (hash.startsWith('#f=')) {
+        raiz.innerHTML = telaDaFamilia(hash.slice(3));
         return;
       }
       const salvo = ler();

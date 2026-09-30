@@ -85,3 +85,9 @@ export function decodificar(token) {
 export function linkDoRelatorio(r, data) {
   return `${URL_PUBLICA}#r=${codificar(r, data)}`;
 }
+
+// Link que o adolescente manda para a familia: relacoes e rede ficam de fora
+// do proprio link, entao nem viajam no endereco.
+export function linkDaFamilia(r, data) {
+  return `${URL_PUBLICA}#f=${codificar({ ...r, relacoes: {}, rede: [] }, data)}`;
+}

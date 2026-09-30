@@ -67,3 +67,18 @@ test('quadro de apoio com emergencia e sem falar em estar sem saida', () => {
   assert.ok(html.includes('190') && html.includes('192'));
   assert.ok(!/sem saída/.test(html));
 });
+
+test('o relatorio traz a leitura cruzada, o desafio e o convite para a familia', () => {
+  const html = montarRelatorio(RESPOSTAS, '30/09/2026');
+  assert.ok(html.includes('id="juntas"'));
+  assert.ok(html.includes('O que suas respostas mostram juntas'));
+  assert.ok(html.includes('id="desafio"'));
+  assert.ok(html.includes('data-acao="familia"'));
+  assert.ok(html.indexOf('id="juntas"') < html.indexOf('id="reagir"'), 'a leitura vem antes dos detalhes');
+  assert.ok(html.includes('Instituto Lótus'));
+  assert.ok(!html.includes('DEL'));
+});
+
+test('a visao da equipe nao tem o botao da familia', () => {
+  assert.ok(!montarRelatorio(RESPOSTAS, 'x', { visaoEquipe: true }).includes('data-acao="familia"'));
+});

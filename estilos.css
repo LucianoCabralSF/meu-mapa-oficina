@@ -1,18 +1,21 @@
-/* Identidade visual DEL / Lotus. Creme e azul-marinho dominam, dourado e acento. */
+/* Identidade visual do Instituto Lotus (Manual de Identidade Visual):
+   Azul Lotus #4A609D, Amarelo Ouro #D4C236, Carvao #333333,
+   Oswald nos titulos e Montserrat no texto. */
 
 :root {
-  --navy: #15365E;
-  --navy2: #0B2543;
-  --gold: #C9AD67;
-  --bronze: #8C7950;
-  --gold-soft: #D9C58D;
-  --cream: #F6F2E8;
-  --sand: #EDE6D3;
-  --blue-pale: #DDE6EF;
-  --ink: #1E2A36;
-  --muted: #66717C;
+  --navy: #4A609D;
+  --navy2: #3A4D82;
+  --gold: #D4C236;
+  --bronze: #6E6414;
+  --gold-soft: #E4E0C4;
+  --cream: #F4F4F2;
+  --sand: #FFFFFF;
+  --blue-pale: #E6EAF4;
+  --ink: #333333;
+  --muted: #666666;
   --green: #52796F;
-  --fonte: Aptos, Calibri, 'Segoe UI', sans-serif;
+  --fonte: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+  --titulo: 'Oswald', 'Arial Narrow', sans-serif;
 }
 
 * { box-sizing: border-box; }
@@ -613,3 +616,34 @@ p.destaque {
 .envio-ok { background: #DCEFE3; color: #1E5B3A; }
 .envio-erro { background: #FBEFC8; }
 .faixa-equipe { background: var(--navy); color: #fff; padding: 10px 14px; border-radius: 10px; margin: 0 0 16px; }
+
+/* ---------- Marca Instituto Lotus ---------- */
+.tela h1, .cabecalho-relatorio h1, .titulo-perfil, .cartao h2, .cartao h3, .enunciado, .respiro-texto {
+  font-family: var(--titulo);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.cartao { border: 1px solid #E3E3E3; border-bottom: 3px solid var(--gold); box-shadow: 0 1px 3px rgba(51, 51, 51, 0.06); }
+.cartao h2 { color: var(--navy); font-size: 15px; letter-spacing: 1.5px; }
+.cartao h3 { font-weight: 500; }
+.kicker { color: var(--bronze); font-weight: 600; }
+.botao-principal { color: #fff; font-family: var(--titulo); font-weight: 500; font-size: 18px; letter-spacing: 1px; text-transform: uppercase; }
+.marca-lotus { display: block; width: 56px; height: 56px; margin: 0 0 12px; }
+.marca-abertura { display: flex; align-items: center; gap: 12px; margin: 8px 0 18px; }
+.marca-abertura img { width: 48px; height: 48px; }
+.marca-abertura span { font-family: var(--titulo); font-size: 15px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--navy); line-height: 1.2; }
+.marca-abertura small { display: block; font-family: var(--fonte); font-size: 11px; letter-spacing: 0.5px; text-transform: none; color: var(--muted); }
+.cartao.destaque { border-left: 4px solid var(--navy); }
+.leitura + .leitura { border-top: 1px solid #ECECEC; margin-top: 12px; }
+.leitura h3 { margin-top: 12px; }
+.cartao.desafio { background: #FBF8E1; }
+.cartao#familia { background: var(--blue-pale); }
+.cartao#familia .botao-principal { margin-top: 8px; }
+.faixa-familia { background: var(--navy); color: #fff; padding: 10px 14px; border-radius: 10px; margin: 16px 0 0; font-size: 14px; }
+.destaque-familia { border-left: 4px solid var(--gold); }
+.pergunta { font-family: var(--titulo); font-size: 19px; color: var(--navy); margin: 10px 0; }
+.frase-ajuda { font-family: var(--titulo); }
+@media print {
+  .cartao.desafio, .cartao#familia { background: #fff; }
+  .faixa-familia { background: #fff; color: var(--navy); border: 1px solid var(--navy); }
+}

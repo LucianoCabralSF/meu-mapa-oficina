@@ -5,6 +5,7 @@ import {
 import {
   ESTILO_TEXTO, SINAIS_TEXTO, RELACAO_TEXTO, REDE_TEXTO, FERRAMENTAS_TEXTO, APOIO, FECHAMENTO,
 } from './textos.js';
+import { leituraCruzada, desafioDaSemana } from './leitura.js';
 
 export function escaparHtml(texto) {
   return String(texto ?? '')
@@ -48,11 +49,16 @@ export function montarRelatorio(respostas, data, { envio = '', visaoEquipe = fal
   const partes = [
     faixa,
     '<header class="cabecalho-relatorio">',
-    '<p class="kicker">OFICINA MEU FUTURO COMEÇA EM MIM · MEU MAPA</p>',
+    '<img class="marca-lotus" src="assets/lotus.png" alt="Instituto Lótus" width="56" height="56">',
+    '<p class="kicker">INSTITUTO LÓTUS · OFICINA MEU FUTURO COMEÇA EM MIM</p>',
     `<h1>Meu Mapa, ${escaparHtml(r.nome)}</h1>`,
     `<p class="data">${escaparHtml(data)}</p>`,
     '</header>',
     r.atencao.atencao ? quadroApoio(true) : '',
+    cartao('juntas', 'O que suas respostas mostram juntas',
+      '<p class="legenda">Cada resposta sozinha você já conhecia. Juntas, elas contam mais:</p>'
+      + leituraCruzada(respostas).map((i) => `<div class="leitura"><h3>${escaparHtml(i.titulo)}</h3>${p(i.texto)}</div>`).join(''), 'destaque'),
+    cartao('desafio', 'Meu desafio da semana', p(desafioDaSemana(respostas)), 'desafio'),
     cartao('reagir', 'Meu jeito de reagir',
       `<p class="titulo-perfil">${escaparHtml(NOMES_ESTILO[r.estilos.principal])}</p>`
       + p(estilo.retrato)
@@ -83,11 +89,15 @@ export function montarRelatorio(respostas, data, { envio = '', visaoEquipe = fal
       }).join('')),
     cartao('rede', 'Com quem eu conto', rede.length ? chips(rede) + p(REDE_TEXTO.com) : p(REDE_TEXTO.sem)),
     r.atencao.atencao ? '' : quadroApoio(false),
+    visaoEquipe ? '' : cartao('familia', 'Compartilhar com a minha família',
+      p('Sua família recebe um relatório próprio, com o seu jeito de reagir e dicas de como conversar melhor com você.')
+      + p('As suas relações e a sua rede de apoio não vão junto: elas ficam só com você e a equipe.')
+      + '<button type="button" class="botao-principal sem-impressao" data-acao="familia">Enviar para minha família</button>', 'sem-impressao'),
     `<p class="fechamento">${escaparHtml(FECHAMENTO)}</p>`,
     visaoEquipe ? '' : blocoEnvio(envio),
     visaoEquipe ? '' : '<button type="button" class="botao-principal sem-impressao" data-acao="imprimir">Salvar em PDF</button>',
     visaoEquipe ? '' : '<button type="button" class="botao-secundario sem-impressao" data-acao="apagar">Terminar e apagar deste celular</button>',
-    '<p class="aviso-legal">Ferramenta de autoconhecimento da oficina, inspirada no Mapa de Perfil da DEL. Não é teste psicológico nem diagnóstico.</p>',
+    '<p class="aviso-legal">Instituto Lótus · Instituto de Desenvolvimento Humano e Social. Ferramenta de autoconhecimento da oficina; não é teste psicológico nem diagnóstico.</p>',
   ];
   return partes.join('');
 }
