@@ -45,6 +45,14 @@ Pronto. A partir daí, cada envio vira uma linha na planilha.
 - Linhas com **ATENÇÃO** pedem uma conversa cuidadosa com o adolescente e, se houver sinal de violência ou risco, o encaminhamento previsto pela instituição (Conselho Tutelar, rede de proteção).
 - Não é teste psicológico nem diagnóstico: é uma ferramenta de autoconhecimento da oficina.
 
+## Na hora da oficina
+
+- **Celular emprestado ou compartilhado:** ao terminar, peça para tocar em **"Terminar e apagar deste celular"**. Assim o próximo adolescente começa do zero e não vê o resultado de quem respondeu antes.
+- **Para voltar uma pergunta,** use o **"‹ voltar"** da própria página. O botão de voltar do celular sai do site.
+- **Se alguém não usa nenhuma ferramenta,** oriente a marcar a que mais se aproxima.
+- **Linhas repetidas** (mesmo nome, mesma hora e mesmo link) são o mesmo adolescente: acontece se o celular recarregar durante o envio.
+- **Quem não aceitou enviar** não aparece na planilha. Mesmo assim, o celular dessa pessoa mostra o quadro de apoio (CVV 188, Disque 100, 190 e 192). Vale uma checagem verbal com o grupo todo no fechamento.
+
 ## Para quem mexe no código
 
 - `npm test` roda os testes automáticos (motor, link, envio, relatório, telas e backend).

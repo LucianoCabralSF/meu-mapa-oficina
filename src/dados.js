@@ -49,11 +49,11 @@ export const SITUACOES = [
     ],
   },
   {
-    enunciado: 'Alguém passa dos limites com você, mesmo depois de você pedir para parar.',
+    enunciado: 'Um colega insiste numa brincadeira que você já pediu para parar.',
     opcoes: [
       { estilo: 'EXP', texto: 'Digo com firmeza que não aceito aquilo.' },
-      { estilo: 'REF', texto: 'Penso em como me proteger antes de reagir.' },
-      { estilo: 'DIS', texto: 'Me afasto dessa pessoa.' },
+      { estilo: 'REF', texto: 'Penso em como dizer isso sem piorar a situação.' },
+      { estilo: 'DIS', texto: 'Me afasto e sigo com outra turma.' },
       { estilo: 'APO', texto: 'Conto para um adulto de confiança.' },
     ],
   },

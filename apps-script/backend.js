@@ -13,7 +13,8 @@ function responder(objeto) {
 // Texto seguro para a planilha: cortado e sem virar formula.
 function texto(valor) {
   var t = String(valor == null ? '' : valor).replace(/\s+/g, ' ').trim().slice(0, LIMITE_TEXTO);
-  return /^[=+\-@]/.test(t) ? "'" + t : t;
+  // Formula (= + - @) ou algo que a planilha trocaria por data/numero (8/1, 9-2).
+  return /^[=+\-@]/.test(t) || /^[\d\/\-. ]+$/.test(t) ? "'" + t : t;
 }
 
 function lista(valor) {
@@ -40,6 +41,11 @@ function doPost(e) {
     return responder({ ok: false, erro: 'termometro' });
   }
   var relacoes = dados.relacoes || {};
+  var cores = [cor(relacoes.casa), cor(relacoes.amigos), cor(relacoes.escola)];
+  // A atencao e recalculada aqui: nao depende so do que o celular informou.
+  var alerta = Boolean(dados.atencao) || termometro >= 4 || cores.indexOf('VERMELHO') >= 0;
+  var link = String(dados.link == null ? '' : dados.link);
+  var linkValido = /^https:\/\/lucianocabralsf\.github\.io\/meu-mapa-oficina\/#r=[A-Za-z0-9_-]{1,1500}$/.test(link);
   var linha = [
     Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'dd/MM/yyyy HH:mm'),
     nome,
@@ -49,13 +55,13 @@ function doPost(e) {
     termometro,
     lista(dados.sinais),
     lista(dados.ferramentas),
-    cor(relacoes.casa),
-    cor(relacoes.amigos),
-    cor(relacoes.escola),
+    cores[0],
+    cores[1],
+    cores[2],
     lista(dados.rede),
     texto(dados.frase),
-    dados.atencao ? texto('SIM - ' + (dados.motivoAtencao || 'conversar com cuidado')) : 'não',
-    texto(dados.link).slice(0, LIMITE_TEXTO),
+    alerta ? texto('SIM - ' + (dados.motivoAtencao || 'conversar com cuidado')) : 'não',
+    linkValido ? link : '',
   ];
   var trava = LockService.getScriptLock();
   trava.waitLock(10000);

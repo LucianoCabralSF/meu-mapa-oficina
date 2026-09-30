@@ -78,3 +78,31 @@ test('a leitura publica nao devolve respostas', () => {
   const r = JSON.parse(b.doGet({ parameter: {} }).texto);
   assert.deepEqual(Object.keys(r).sort(), ['ok', 'servico']);
 });
+
+test('link real longo chega inteiro na planilha', () => {
+  const b = carregarBackend();
+  const link = `https://lucianocabralsf.github.io/meu-mapa-oficina/#r=${'A'.repeat(420)}`;
+  enviar(b, { ...RESPOSTA, link });
+  assert.equal(b.linhas[0][14], link);
+});
+
+test('link que nao e do Meu Mapa nao entra na planilha', () => {
+  const b = carregarBackend();
+  enviar(b, { ...RESPOSTA, link: 'https://golpe.example/#r=abc' });
+  assert.equal(b.linhas[0][14], '');
+});
+
+test('turma com barra ou traco nao vira data', () => {
+  const b = carregarBackend();
+  enviar(b, { ...RESPOSTA, turma: '8/1' });
+  assert.equal(b.linhas[0][2], "'8/1");
+});
+
+test('o backend marca atencao mesmo se o celular disser que nao', () => {
+  const b = carregarBackend();
+  enviar(b, { ...RESPOSTA, atencao: false, relacoes: { casa: 'vermelho', amigos: 'verde', escola: 'verde' } });
+  assert.match(b.linhas[0][13], /^SIM/);
+  const c = carregarBackend();
+  enviar(c, { ...RESPOSTA, atencao: false, termometro: 4 });
+  assert.match(c.linhas[0][13], /^SIM/);
+});

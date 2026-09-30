@@ -61,3 +61,9 @@ test('textos sem masculino sobre quem responde', () => {
   const todos = JSON.stringify(TEXTOS);
   assert.doesNotMatch(todos, proibidos);
 });
+
+test('quadro de apoio com emergencia e sem falar em estar sem saida', () => {
+  const html = montarRelatorio(RESPOSTAS, 'x');
+  assert.ok(html.includes('190') && html.includes('192'));
+  assert.ok(!/sem saída/.test(html));
+});

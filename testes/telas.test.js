@@ -107,3 +107,25 @@ test('sessao com formato estranho recomeca do inicio', () => {
   const a = ambiente({ sessao: { posicao: 999, respostas: 'lixo' } });
   assert.ok(a.raiz.innerHTML.includes('data-acao="comecar"'));
 });
+
+test('terminar e apagar tira o resultado deste celular', async () => {
+  const telas = montarSequencia();
+  const a = ambiente({ sessao: { posicao: telas.length - 1, respostas: { ...RESPOSTAS, aceitaEnvio: false }, enviado: false } });
+  let recarregou = null;
+  globalThis.location.replace = (u) => { recarregou = u; };
+  await esperar(10);
+  assert.ok(a.raiz.innerHTML.includes('data-acao="apagar"'));
+  a.clicar({ acao: 'apagar' });
+  assert.equal(a.guardado.has(CHAVE), false);
+  assert.ok(recarregou !== null);
+});
+
+test('nao percebo sinais pode ser marcado mesmo com tres sinais ja marcados', () => {
+  const telas = montarSequencia();
+  const pos = telas.findIndex((t) => t.campo === 'sinais');
+  const sinaisTela = telas[pos];
+  const a = ambiente({ sessao: { posicao: pos, respostas: { ...RESPOSTAS, sinais: ['CORACAO', 'BARRIGA', 'ROSTO'] }, enviado: false } });
+  const iNada = sinaisTela.opcoes.findIndex((o) => o.valor === 'NADA');
+  a.clicar({ acao: 'alternar', indice: String(iNada) });
+  assert.deepEqual(JSON.parse(a.guardado.get(CHAVE)).respostas.sinais, ['NADA']);
+});

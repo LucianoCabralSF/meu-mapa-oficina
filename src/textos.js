@@ -50,10 +50,11 @@ export const FERRAMENTAS_TEXTO = {
 };
 
 export const APOIO = {
-  titulo: 'Se estiver difícil, você não está sem saída',
+  titulo: 'Se estiver difícil, você não precisa passar por isso sem ajuda',
   texto: 'Procure hoje um adulto de confiança ou alguém da equipe da oficina.',
   cvv: 'CVV: ligue 188 (gratuito, 24 horas).',
   disque100: 'Violência ou ameaça contra criança ou adolescente: Disque 100.',
+  emergencia: 'Em perigo agora: ligue 190 (Polícia) ou 192 (SAMU).',
 };
 
 export const FECHAMENTO = 'Quando eu precisar, eu não preciso lidar com tudo sem apoio. Cuidar de si também é reconhecer a hora de se conectar e pedir ajuda.';

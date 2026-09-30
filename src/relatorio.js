@@ -30,7 +30,7 @@ function blocoEnvio(envio) {
 
 function quadroApoio(urgente) {
   return `<section class="cartao apoio${urgente ? ' apoio-urgente' : ''}" id="apoio">`
-    + `<h2>${escaparHtml(APOIO.titulo)}</h2>${p(APOIO.texto)}${p(APOIO.cvv)}${p(APOIO.disque100)}</section>`;
+    + `<h2>${escaparHtml(APOIO.titulo)}</h2>${p(APOIO.texto)}${p(APOIO.cvv)}${p(APOIO.disque100)}${p(APOIO.emergencia)}</section>`;
 }
 
 export function montarRelatorio(respostas, data, { envio = '', visaoEquipe = false } = {}) {
@@ -86,6 +86,7 @@ export function montarRelatorio(respostas, data, { envio = '', visaoEquipe = fal
     `<p class="fechamento">${escaparHtml(FECHAMENTO)}</p>`,
     visaoEquipe ? '' : blocoEnvio(envio),
     visaoEquipe ? '' : '<button type="button" class="botao-principal sem-impressao" data-acao="imprimir">Salvar em PDF</button>',
+    visaoEquipe ? '' : '<button type="button" class="botao-secundario sem-impressao" data-acao="apagar">Terminar e apagar deste celular</button>',
     '<p class="aviso-legal">Ferramenta de autoconhecimento da oficina, inspirada no Mapa de Perfil da DEL. Não é teste psicológico nem diagnóstico.</p>',
   ];
   return partes.join('');

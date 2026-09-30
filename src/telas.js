@@ -240,12 +240,15 @@ export function criarApp(raiz) {
       const valor = t.opcoes[Number(alvo.dataset.indice)].valor;
       const lista = respostas[t.campo];
       const i = lista.indexOf(valor);
-      if (i >= 0) lista.splice(i, 1);
-      else if (lista.length < t.max) lista.push(valor);
-      // "Nao percebo" e "Ainda nao sei" nao combinam com as outras opcoes.
+      // "Nao percebo" e "Ainda nao sei" nao combinam com as outras opcoes
+      // e podem ser marcadas mesmo quando o limite ja foi atingido.
       const unico = { sinais: 'NADA', rede: 'NSEI' }[t.campo];
-      if (unico && valor === unico && lista.includes(unico)) respostas[t.campo] = [unico];
-      else if (unico && valor !== unico) respostas[t.campo] = respostas[t.campo].filter((v) => v !== unico);
+      if (unico && valor === unico && i < 0) respostas[t.campo] = [unico];
+      else if (i >= 0) lista.splice(i, 1);
+      else {
+        const semUnico = lista.filter((v) => v !== unico);
+        if (semUnico.length < t.max) respostas[t.campo] = [...semUnico, valor];
+      }
       guardar();
       desenhar();
     } else if (acao === 'cor') {
@@ -254,6 +257,11 @@ export function criarApp(raiz) {
       desenhar();
     } else if (acao === 'reenviar') enviarRespostas();
     else if (acao === 'imprimir') window.print();
+    else if (acao === 'apagar') {
+      // Celular compartilhado: o proximo adolescente comeca do zero.
+      try { sessionStorage.removeItem(CHAVE); } catch { /* nada a apagar */ }
+      location.replace(location.pathname + (location.search ?? ''));
+    }
     else if (acao === 'voltar') {
       if (t.tipo === 'forcada' && passo === 'menos') {
         respostas.estilos[t.indice] = { mais: null, menos: null };
